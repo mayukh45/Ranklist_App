@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>RankList_App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 1500px}
+
+     Set gray background color and 100% height
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+      <h4>Menu</h4>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="/home">Home</a></li>
+        <li><a href="/home/modify">Create or modify your custom ranklist</a></li>
+        <li class="active"> <a href="/home/ranklist">Your custom ranklist</a></li>
+
+      </ul><br>
+
+    </div>
+
+    <div class="col-sm-9">
+      <h4><small>Ranklist</small></h4>
+      <hr>
+      <h2>Your Custom Ranklist</h2>
+
+
+            <form action="/home/ranklist" method = 'GET'>
+            {% csrf_token %}
+        <div class="form-group">
+        <label for="username">Your username:</label>
+        <input type="text" class="form-control" id="username" placeholder="Enter your username" name="username">
+
+
+
+
+
+
+<hr>
+
+
+       <p>Click on this button to get present ongoing contests</p>
+      <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#dmo">Contests</button>
+      <h4><small>Please refresh the page to refresh the list of contests</small></h4>
+        <div id="dmo" class="collapse">
+            <p style="font-size:120%;">{{contests}}</p>
+
+        </div>
+
+
+
+
+
+
+            <br>
+
+
+        <label for="contest_code">Enter the contest code to fetch ranklist</label>
+        <input type="text" class="form-control" id="contest_code" placeholder="Enter the contest code" name="contest_code">
+
+
+
+
+        </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+
+        </form>
+
+        {% if null == False %}
+        {% if friends|length == 0 %}
+        <p style="font-size:120%;color:red;">You have not yet added anyone to your friendlist</p>
+        {% endif %}
+        {% endif %}
+
+    <hr>
+        {% if null == False %}
+        {% if ranklist|length > 0 %}
+        <p style="color:green;font-size:120%;">Ranklist fetched!</p>
+         {% endif %}
+        {% endif %}
+
+      <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">Get ranks</button>
+      <h4><small>Please refresh the page to refresh the ranklist</small></h4>
+
+        <div id="demo" class="collapse">
+            <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Rank</th>
+        <th>Total Score</th>
+      </tr>
+    </thead>
+
+                <tbody>
+
+    {% if ranklist|length > 0 %}
+    {% for ranks in ranklist %}
+
+      <tr>
+        <td>{{ ranks.username }}</td>
+        <td>{{ ranks.rank }}</td>
+        <td>{{ ranks.totalScore }}</td>
+      </tr>
+
+
+    {% endfor %}
+    {% endif %}
+    </tbody>
+  </table>
+</div>
+
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+</html>

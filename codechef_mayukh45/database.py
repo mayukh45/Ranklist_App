@@ -1,0 +1,1 @@
+data = {'mayukh45': {'friends': {'sarthak': 'International Institute of Information Technology, Hyderabad'}, 'college': 'Kalyani Government Engineering College'}, 'sarthakmanna': {'friends': {'mayukh45': 'Kalyani Government Engineering College', 'himadri': 'National Institute of Technology Meghalaya'}, 'college': 'Kalyani Government Engineering College'}}
