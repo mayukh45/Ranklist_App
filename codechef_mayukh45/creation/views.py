@@ -15,14 +15,14 @@ def index(request):
     new_friend = ""
     friends = {}
     username = str(request.GET.get('username'))
-    #print("username creation "+str(username))
+    print("username creation "+str(username))
     if len(str(username)) > 0 and str(username) != "None":
         own_college = get_college(access_token,str(username))
     from database import data
     del sys.modules['database']
     #print(str(data))
     keys = list(data.keys())
-    if keys.count(username)==0:
+    if keys.count(username)==0 and username!="None":
         data[username]={'friends':{},"college":own_college}
         keys.append(username)
     if request.method=="POST":
@@ -30,7 +30,7 @@ def index(request):
         print(new_friend)
         if len(str(new_friend))>0 and str(new_friend)!="None" and str(username)!=("None"):
             #print("LOL"*10)
-            print(username)
+            #print(username)
 
 
             friends_college = get_college(access_token,new_friend)
@@ -42,7 +42,8 @@ def index(request):
                 f.write("data = "+str(data))
                 f.close()
 
-
+    print("*"*100)
+    print("new_friend"+str(new_friend))
     print(str(data))
     if keys.count(username)>0:
         print(username + "io")
