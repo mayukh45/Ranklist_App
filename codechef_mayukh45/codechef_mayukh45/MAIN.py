@@ -15,9 +15,9 @@ def generate_refresh_token(refresh_token):
             'client_secret': my_secret}
 
     refresh_token_response = requests.post(auth_uri, headers=headers, data=json.dumps(data))
-
-    refresh_token_response = json.loads(refresh_token_response.content)
-    print(refresh_token_response)
+    print(refresh_token_response.content)
+    refresh_token_response = json.loads(refresh_token_response.content.decode("UTF-8"))
+   # print(refresh_token_response)
     access_token = refresh_token_response['result']['data']['access_token']
     refresh_token = refresh_token_response['result']['data']['refresh_token']
     f = open('conf.py','w')
@@ -32,7 +32,7 @@ def get_college(access_token,username):
         "Authorization": "Bearer " + access_token
     }
     college_response = requests.get(base_url,headers=headers)
-    college_response = json.loads(college_response.content)
+    college_response = json.loads(college_response.content.decode("UTF-8"))
 
     if college_response['result']['data']['message']=="user does not exists":
         return -1
@@ -41,7 +41,7 @@ def get_college(access_token,username):
 
 
 def get_contests(access_token,refresh_token):
-
+    #print("lololololololol"*50)
     base_url = "https://api.codechef.com/contests?fields=code&status=present"
 
     headers = {
@@ -49,7 +49,10 @@ def get_contests(access_token,refresh_token):
         "Authorization": "Bearer " + access_token
     }
     contests_response = requests.get(base_url, headers=headers)
-    contests_response = json.loads(contests_response.content)
+   # print("0"*20)
+    
+    print(contests_response.content)
+    contests_response = json.loads(contests_response.content.decode("UTF-8"))
 
     # if access token is expired
     if contests_response['status'] == "error":
@@ -82,6 +85,7 @@ def get_ranklist(access_token,refresh_token,friends_dict,c_code,username,own_col
         "Accept": "application/json",
         "Authorization": "Bearer " + access_token
     }
+    found = False
     friends_id = list(friends_dict.keys())
     friends_id.append(username)
     print(friends_id)
@@ -92,24 +96,41 @@ def get_ranklist(access_token,refresh_token,friends_dict,c_code,username,own_col
             college = str(friends_dict[friend]).split(" ")
         #print(username+"YOYO"+college)
         insti_url = "%20".join(college)
-        url = base_url + c_code + "?fields=username%2CtotalScore&institution=" + insti_url
+        url = base_url + c_code + "?fields=username%2CtotalScore&institution=" + insti_url+"&limit=25"
     # print(url)
         rank_list_response = requests.get(url, headers=headers)
-        rank_list_response = json.loads(rank_list_response.content)
+        rank_list_response = json.loads(rank_list_response.content.decode("UTF-8"))
 
     # if access token is expired
         if rank_list_response['status'] == 'error':
             generate_refresh_token(refresh_token)
             rank_list_response = requests.get(url, headers=headers)
-            rank_list_response = json.loads(rank_list_response.content)
+            rank_list_response = json.loads(rank_list_response.content.decode("UTF-8"))
 
-        #print(rank_list_response)
+       # print(rank_list_response)
         if not(rank_list_response['result']['data']['code']==9000):
                 content = rank_list_response['result']['data']['content']
         for info in content:
             if info['username']==friend:
                 rank_list.append(info)
+                found = True
                 break
+        if not(found):
+            url = url+"&sortOrder=asc"
+            rank_list_response = requests.get(url, headers=headers)
+            rank_list_response = json.loads(rank_list_response.content.decode("UTF-8"))
 
+    # if access token is expired
+            if rank_list_response['status'] == 'error':
+                generate_refresh_token(refresh_token)
+                rank_list_response = requests.get(url, headers=headers)
+                rank_list_response = json.loads(rank_list_response.content.decode("UTF-8"))
 
+        #print(rank_list_response)
+            if not(rank_list_response['result']['data']['code']==9000):
+                content = rank_list_response['result']['data']['content']
+            for info in content:
+                if info['username']==friend:
+                    rank_list.append(info)
+                    break
     return rank_list
