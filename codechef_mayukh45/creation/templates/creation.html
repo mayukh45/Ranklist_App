@@ -52,6 +52,7 @@
     <div class="col-sm-9">
       <h4><small>Modify</small></h4>
       <hr>
+    {% if friends|length > 0 %}
       <h2>Create your friendlist</h2>
 
         <form action="/home/modify" method = 'GET'>
@@ -67,6 +68,7 @@
             <button type="submit" class="btn btn-default">Submit</button>
 
         </form>
+        {% endif %}
         {% if own_college == -1 %}
         <p style="font-size:120%;color:red;">Username does not exist</p>
         {% endif %}

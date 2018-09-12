@@ -88,7 +88,7 @@ def get_ranklist(access_token,refresh_token,friends_dict,c_code,username,own_col
     found = False
     friends_id = list(friends_dict.keys())
     friends_id.append(username)
-    print(friends_id)
+   # print(friends_id)
     for friend in friends_id:
         if friend==username:
             college = own_college.split(" ")
@@ -107,7 +107,8 @@ def get_ranklist(access_token,refresh_token,friends_dict,c_code,username,own_col
             rank_list_response = requests.get(url, headers=headers)
             rank_list_response = json.loads(rank_list_response.content.decode("UTF-8"))
 
-       # print(rank_list_response)
+        content =[]
+        # print(rank_list_response)
         if not(rank_list_response['result']['data']['code']==9000):
                 content = rank_list_response['result']['data']['content']
         for info in content:
