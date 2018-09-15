@@ -10,10 +10,11 @@ auth_uri = 'https://api.codechef.com/oauth/token'
 
 def generate_refresh_token(refresh_token):
 
+
     headers = {'content-Type': 'application/json', }
     data = {'grant_type': 'refresh_token', 'refresh_token': refresh_token, 'client_id': my_id,
             'client_secret': my_secret}
-
+   # print(refresh_token)
     refresh_token_response = requests.post(auth_uri, headers=headers, data=json.dumps(data))
     print(refresh_token_response.content)
     refresh_token_response = json.loads(refresh_token_response.content.decode("UTF-8"))
@@ -50,15 +51,15 @@ def get_contests(access_token,refresh_token):
     }
     contests_response = requests.get(base_url, headers=headers)
    # print("0"*20)
-    
-    print(contests_response.content)
+
+   # print(contests_response.content)
     contests_response = json.loads(contests_response.content.decode("UTF-8"))
 
     # if access token is expired
     if contests_response['status'] == "error":
         generate_refresh_token(refresh_token)
         contests_response = requests.get(base_url, headers=headers)
-        contests_response = json.loads(contests_response.content)
+        contests_response = json.loads(contests_response.content.decode("UTF-8"))
 
     temp = contests_response['result']['data']['content']['contestList']
     contest_list = []
@@ -87,6 +88,7 @@ def get_ranklist(access_token,refresh_token,friends_dict,c_code,username,own_col
     }
     found = False
     friends_id = list(friends_dict.keys())
+
     friends_id.append(username)
    # print(friends_id)
     for friend in friends_id:
@@ -134,4 +136,6 @@ def get_ranklist(access_token,refresh_token,friends_dict,c_code,username,own_col
                 if info['username']==friend:
                     rank_list.append(info)
                     break
+      #  print(str(friend))
+       # print(str(rank_list))
     return rank_list
