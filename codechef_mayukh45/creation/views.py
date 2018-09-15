@@ -42,11 +42,11 @@ def index(request):
                 f.write("data = "+str(data))
                 f.close()
 
-    print("*"*100)
-    print("new_friend"+str(new_friend))
-    print(str(data))
+   # print("*"*100)
+   # print("new_friend"+str(new_friend))
+   # print(str(data))
     if keys.count(username)>0:
-        print(username + "io")
+       # print(username + "io")
         friends = list(data[username]['friends'].keys())
 
 
@@ -55,7 +55,7 @@ def index(request):
         null = True
 
     #print("creation"+str(username))
-    print("friends "+str(friends))
+   # print("friends "+str(friends))
     context = {'friends' : friends,'username':username,'own_college':own_college,'friend_college':friends_college,"null":null}
     return render(request,"creation.html", context)
 
