@@ -24,8 +24,8 @@ def index(request):
     del sys.modules['database']
     keys = list(data.keys())
     #print(keys)
-    print(username)
-    print(contest_code)
+ #   print(username)
+  #  print(contest_code)
 
     if keys.count(username)>0:
         friends = data[username]['friends']
@@ -34,11 +34,14 @@ def index(request):
             #print("AM IN"+str(friends))
 
     contests = get_contests(access_token,refresh_token)
-    print(ranklist)
+   # print(ranklist)
     null = False
     if str(username) =="None":
         null=True
-    #print("LOL"*40)
+   # print("LOL"*40)
+   # print("BEFOREEEE"+str(ranklist))
+   # print("\n\n")
     ranklist = sorted(ranklist, key=itemgetter('rank'))
+   # print("AFTERRR"+str(ranklist))
     context = {'contests':contests,'friends' : friends,'username':username,'ranklist':ranklist,'null':null}
     return render(request,"ranklist.html", context)
