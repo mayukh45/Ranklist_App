@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import  render
-from codechef_mayukh45.conf import access_token,refresh_token
+#from conf import access_token,refresh_token
 from codechef_mayukh45.MAIN import get_college
 import sys
 #username = ""
@@ -15,9 +15,9 @@ def index(request):
     new_friend = ""
     friends = {}
     username = str(request.GET.get('username'))
-    print("username creation "+str(username))
+   # print("username creation "+str(username))
     if len(str(username)) > 0 and str(username) != "None":
-        own_college = get_college(access_token,str(username))
+        own_college = get_college(str(username))
     from database import data
     del sys.modules['database']
     #print(str(data))
@@ -33,7 +33,7 @@ def index(request):
             #print(username)
 
 
-            friends_college = get_college(access_token,new_friend)
+            friends_college = get_college(new_friend)
             if friends_college != -1 and own_college!=-1:
 
                 data[username]['friends'][str(new_friend)]=friends_college

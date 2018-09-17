@@ -1,5 +1,6 @@
 import requests
 import json
+import sys
 count = 0
 my_id = '38cb632e20af9e3fcc51b87acdacccbf'
 my_secret = '55789839fb85e93e85ac6a20a98c3152'
@@ -26,7 +27,10 @@ def generate_refresh_token(refresh_token):
     f.close()
 
 
-def get_college(access_token,username):
+def get_college(username):
+    from conf import access_token
+
+    del sys.modules['conf']
     base_url = "https://api.codechef.com/users/"+username+"?fields=organization"
     headers = {
         "Accept": "application/json",
@@ -34,6 +38,8 @@ def get_college(access_token,username):
     }
     college_response = requests.get(base_url,headers=headers)
     college_response = json.loads(college_response.content.decode("UTF-8"))
+    
+    
 
     if college_response['result']['data']['message']=="user does not exists":
         return -1
@@ -41,7 +47,9 @@ def get_college(access_token,username):
 
 
 
-def get_contests(access_token,refresh_token):
+def get_contests():
+    from conf import access_token,refresh_token
+    del sys.modules['conf']
     #print("lololololololol"*50)
     base_url = "https://api.codechef.com/contests?fields=code&status=present"
 
@@ -79,7 +87,9 @@ def get_contests(access_token,refresh_token):
 
 
 
-def get_ranklist(access_token,refresh_token,friends_dict,c_code,username,own_college):
+def get_ranklist(friends_dict,c_code,username,own_college):
+    from conf import access_token,refresh_token
+    del sys.modules['conf']   
     rank_list = []
     base_url = 'https://api.codechef.com/rankings/'
     headers = {
