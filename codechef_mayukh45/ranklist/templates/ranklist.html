@@ -106,13 +106,9 @@
         {% if null == False %}
         {% if ranklist|length > 0 %}
         <p style="color:green;font-size:120%;">Ranklist fetched!</p>
-         {% endif %}
-        {% endif %}
+        
+        <br>
 
-      <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">Get ranks</button>
-      <h4><small>Please refresh the page to refresh the ranklist</small></h4>
-
-        <div id="demo" class="collapse">
             <table class="table table-hover">
     <thead>
       <tr>
@@ -124,7 +120,7 @@
 
                 <tbody>
 
-    {% if ranklist|length > 0 %}
+    
     {% for ranks in ranklist %}
 
       <tr>
@@ -136,9 +132,10 @@
 
     {% endfor %}
     {% endif %}
+    {% endif %}
     </tbody>
   </table>
-</div>
+
 
         </div>
 
