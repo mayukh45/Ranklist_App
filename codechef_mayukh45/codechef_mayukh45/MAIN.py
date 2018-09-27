@@ -38,8 +38,8 @@ def get_college(username):
     }
     college_response = requests.get(base_url,headers=headers)
     college_response = json.loads(college_response.content.decode("UTF-8"))
-    
-    
+
+
 
     if college_response['result']['data']['message']=="user does not exists":
         return -1
@@ -89,7 +89,7 @@ def get_contests():
 
 def get_ranklist(friends_dict,c_code,username,own_college):
     from conf import access_token,refresh_token
-    del sys.modules['conf']   
+    del sys.modules['conf']
     rank_list = []
     base_url = 'https://api.codechef.com/rankings/'
     headers = {
@@ -108,7 +108,7 @@ def get_ranklist(friends_dict,c_code,username,own_college):
             college = str(friends_dict[friend]).split(" ")
         #print(username+"YOYO"+college)
         insti_url = "%20".join(college)
-        url = base_url + c_code + "?fields=username%2CtotalScore&institution=" + insti_url+"&limit=25"
+        url = base_url + c_code + "?fields=username%2CtotalScore&institution=" + insti_url
     # print(url)
         rank_list_response = requests.get(url, headers=headers)
         rank_list_response = json.loads(rank_list_response.content.decode("UTF-8"))

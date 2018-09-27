@@ -54,12 +54,13 @@
       <hr>
     {% if friends|length == 0 %}
     {% if null == True %}
-      <h2>Create your friendlist</h2>
+      <h2>Create or Modify your friendlist</h2>
+      
 
         <form action="/home/modify" method = 'GET'>
             {% csrf_token %}
         <div class="form-group">
-        <label for="username">Enter your username to fetch your friendlist:</label>
+        <label for="username">Enter your username(Codechef's) to fetch your friendlist:</label>
         <input type="text" class="form-control" id="username" placeholder="Enter your username" name="username">
 
 
@@ -94,11 +95,12 @@
         {% endif %}
         <hr>
     <br>
-        <h3>Add friends to your friendlist</h3>
+    {% if null == False %}   
+    <h3>Add friends to your friendlist</h3>
         <form action="#" method = 'POST'>
             {% csrf_token %}
         <div class="form-group">
-            <label for="new_friend">Username of your friend you want to keep an <mark>eye</mark> on:</label>
+            <label for="new_friend">Username(Codechef's) of your friend you want to keep an <mark>eye</mark> on:</label>
         <input type="text" class="form-control" id="new_friend" placeholder="Friend's username" name="new_friend">
 
 
@@ -111,6 +113,7 @@
         {% endif %}
 
 
+        {% endif %}
 
 
 
