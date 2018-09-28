@@ -12,9 +12,7 @@ def refresh():
     while(True):
         from conf import refresh_token
         del sys.modules['conf']
-        f = open('conf.py','r')
-        print(f.read())
-        print(refresh_token)
+
 
         generate_refresh_token(refresh_token)
         sleep(20*60)
