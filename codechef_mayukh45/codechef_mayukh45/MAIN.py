@@ -4,7 +4,7 @@ import sys
 count = 0
 my_id = '38cb632e20af9e3fcc51b87acdacccbf'
 my_secret = '55789839fb85e93e85ac6a20a98c3152'
-redirect_uri = 'http://149.129.138.201/'
+
 
 auth_uri = 'https://api.codechef.com/oauth/token'
 
