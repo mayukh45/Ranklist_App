@@ -128,24 +128,6 @@ def get_ranklist(friends_dict,c_code,username,own_college):
                 rank_list.append(info)
                 found = True
                 break
-        if not(found):
-            url = url+"&sortOrder=asc"
-            rank_list_response = requests.get(url, headers=headers)
-            rank_list_response = json.loads(rank_list_response.content.decode("UTF-8"))
 
-    # if access token is expired
-            if rank_list_response['status'] == 'error':
-                generate_refresh_token(refresh_token)
-                rank_list_response = requests.get(url, headers=headers)
-                rank_list_response = json.loads(rank_list_response.content.decode("UTF-8"))
 
-        #print(rank_list_response)
-            if not(rank_list_response['result']['data']['code']==9000):
-                content = rank_list_response['result']['data']['content']
-            for info in content:
-                if info['username']==friend:
-                    rank_list.append(info)
-                    break
-      #  print(str(friend))
-       # print(str(rank_list))
     return rank_list
