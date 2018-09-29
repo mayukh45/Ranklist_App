@@ -1,2 +1,2 @@
 # test
-for testing my web app
+MY Rank_List web app using the codechef API

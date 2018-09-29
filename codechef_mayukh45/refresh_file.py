@@ -16,6 +16,6 @@ def refresh():
 
         generate_refresh_token(refresh_token)
         sleep(20*60)
-        sys.stdout.flush()
+       
 
 refresh()
