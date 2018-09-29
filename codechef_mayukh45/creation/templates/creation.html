@@ -54,6 +54,7 @@
       <hr>
     {% if friends|length == 0 %}
     {% if null == True %}
+  
       <h2>Create or Modify your friendlist</h2>
       
 
@@ -72,16 +73,40 @@
         </form>
         {% endif %}
         {% endif %}
+        
         {% if own_college == -1 %}
+        {% if null == False %}
+       <h2>Create or Modify your friendlist</h2>
+
+
+        <form action="/home/modify" method = 'GET'>
+            {% csrf_token %}
+        <div class="form-group">
+        <label for="username">Enter your username(Codechef's) to fetch your friendlist:</label>
+        <input type="text" class="form-control" id="username" placeholder="Enter your username" name="username">
+
+
+
+
+        </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+
+        </form>
+ 
+
         <p style="font-size:120%;color:red;">Username does not exist</p>
         {% endif %}
+        {% endif %}
+        
 
         {% if friends|length == 0 %}
         {% if null == False %}
+        {% if own_college != -1 %}
         <hr>
 
         <h3>Your friendlist</h3>
         <p style="font-size:120%;color:red;">You have not yet added anyone to your friendlist</p>
+        {% endif %}
         {% endif %}
         {% endif %}
         {% if friends|length > 0  %}
@@ -95,7 +120,8 @@
         {% endif %}
         <hr>
     <br>
-    {% if null == False %}   
+    {% if null == False %}
+    {% if own_college != -1 %}
     <h3>Add friends to your friendlist</h3>
         <form action="#" method = 'POST'>
             {% csrf_token %}
@@ -113,6 +139,7 @@
         {% endif %}
 
 
+        {% endif %}
         {% endif %}
 
 
